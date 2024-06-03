@@ -95,23 +95,27 @@ public class Main {
           playerPreparedStatement.setString(8, csvRecord.get("POT"));
           playerPreparedStatement.setInt(9, clubId);
           playerPreparedStatement.setString(10, csvRecord.get("Contract"));
-          playerPreparedStatement.setString(11, csvRecord.get("Height"));
-          playerPreparedStatement.setString(12, csvRecord.get("Weight"));
+          playerPreparedStatement.setFloat(11, CommonHelper.convertFeetIntoCentimeter(csvRecord.get("Height")));
+          System.out.println(csvRecord.get("Weight"));
+
+          playerPreparedStatement.setFloat(12, CommonHelper.convertPoundIntoKilogram(csvRecord.get("Weight")));
           playerPreparedStatement.setString(13, csvRecord.get("Preferred Foot"));
           playerPreparedStatement.setString(14, csvRecord.get("Best Position"));
           playerPreparedStatement.setString(15, csvRecord.get("Joined"));
           playerPreparedStatement.setString(16, csvRecord.get("Loan Date End"));
-          playerPreparedStatement.setString(17, csvRecord.get("Value"));
-          playerPreparedStatement.setString(18, csvRecord.get("Wage"));
-          playerPreparedStatement.setString(19, csvRecord.get("Release Clause"));
+          playerPreparedStatement.setFloat(17, CommonHelper.convertFromCurrencyIntoInteger(csvRecord.get("Value")));
+          playerPreparedStatement.setFloat(18, CommonHelper.convertFromCurrencyIntoInteger(csvRecord.get("Wage")));
+          System.out.println(csvRecord.get("Release Clause"));
+          playerPreparedStatement.setFloat(19, CommonHelper.convertFromCurrencyIntoInteger(csvRecord.get("Release Clause")));
           playerPreparedStatement.setString(20, csvRecord.get("Total Stats"));
           playerPreparedStatement.setString(21, csvRecord.get("Base Stats"));
-          playerPreparedStatement.setString(22, csvRecord.get("W/F"));
-          playerPreparedStatement.setString(23, csvRecord.get("SM"));
+          playerPreparedStatement.setString(22, csvRecord.get("W/F").replaceAll("★", ""));
+          playerPreparedStatement.setString(23, csvRecord.get("SM").replaceAll("★", ""));
           playerPreparedStatement.setString(24, csvRecord.get("A/W"));
           playerPreparedStatement.setString(25, csvRecord.get("D/W"));
-          playerPreparedStatement.setString(26, csvRecord.get("IR"));
-          playerPreparedStatement.setString(27, csvRecord.get("Hits"));
+          playerPreparedStatement.setString(26, csvRecord.get("IR").replaceAll("★", ""));
+          System.out.println(csvRecord.get("Hits"));
+          playerPreparedStatement.setFloat(27, CommonHelper.convertUnitIntoInteger(csvRecord.get("Hits").trim()));
           playerPreparedStatement.executeUpdate();
           ResultSet generatedKeys = playerPreparedStatement.getGeneratedKeys();
           if (generatedKeys.next()) {
@@ -206,9 +210,9 @@ public class Main {
           statisticPreparedStatement.setInt(41, Integer.parseInt(csvRecord.get("GK Positioning")));
           statisticPreparedStatement.setInt(42, Integer.parseInt(csvRecord.get("GK Reflexes")));
           statisticPreparedStatement.executeUpdate();
-          break;
+          System.out.println("Data created successfully");
         } catch (SQLException e) {
-          throw new RuntimeException("Could not connect to database", e);
+          throw new RuntimeException("Error when trying interact to database", e);
         }
       }
     } catch (IOException ioException) {

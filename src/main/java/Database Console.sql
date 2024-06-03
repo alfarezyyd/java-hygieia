@@ -30,15 +30,15 @@ CREATE TABLE players
     pot            INT,
     club_id        INT,
     contract       VARCHAR(255),
-    height         VARCHAR(10),
-    weight         VARCHAR(10),
+    height         FLOAT,
+    weight         FLOAT,
     preferred_foot VARCHAR(10),
     best_position  VARCHAR(10),
     joined         VARCHAR(100),
     loan_date_end  VARCHAR(100),
-    value          VARCHAR(50),
-    wage           VARCHAR(50),
-    release_clause VARCHAR(50),
+    value          FLOAT,
+    wage           FLOAT,
+    release_clause FLOAT,
     total_stats    INT,
     base_stats     INT,
     w_f            VARCHAR(10),
@@ -46,7 +46,7 @@ CREATE TABLE players
     a_w            VARCHAR(10),
     d_w            VARCHAR(10),
     ir             VARCHAR(10),
-    hits           INT,
+    hits           FLOAT,
     FOREIGN KEY (nationality_id) REFERENCES nationalities (nationality_id),
     FOREIGN KEY (club_id) REFERENCES clubs (club_id)
 );
@@ -104,3 +104,4 @@ SELECT * FROM nationalities;
 SELECT * FROM clubs;
 SELECT * FROM players;
 SELECT * FROM statistics;
+SELECT COUNT(*) FROM players;
